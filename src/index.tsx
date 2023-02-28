@@ -3,13 +3,40 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Counter from './components/counter/Counter';
+import { Pokemon } from './models/Pokemon';
+import PokemonList from './components/PokemonList/PokemonList';
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
+import NavBar from './components/NavBar/NavBar';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+let pokemon:Pokemon = {
+  damage: 20,
+  health: 100,
+  img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png',
+  level: 3,
+  name: 'Ditto'
+}
+
+
 root.render(
   <React.StrictMode>
-    <App />
+
+    <BrowserRouter>
+    <Counter />
+
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<App />}/>
+        <Route path="/pokeList" element={<PokemonList />}/>
+      </Routes>
+    </BrowserRouter>
+   
+   
   </React.StrictMode>
 );
 
