@@ -10,7 +10,7 @@ export default function PokemonList() {
         health: 0,
         img: "",
         level: 0,
-        name: ""        
+        name: ""
     }
 
     const [listOfPokemons, setListPoke] = useState<Pokemon[]>([
@@ -28,17 +28,22 @@ export default function PokemonList() {
           level: 5,
           name: 'random'
         }
-      
+
       ])
+
+      function removePokemon (name: string) {
+        console.log('Called removePokemon with name ' + name);
+        setListPoke(listOfPokemons.filter(poke => poke.name != name));
+      }
 
       function onSubmitP(event: React.FormEvent<HTMLFormElement>){
         event.preventDefault();
         console.log(listOfPokemons);
-    
+
         //When you click on the button to submit
-        //Send request using Axios 
+        //Send request using Axios
         //Axios is going to grab the information from the pokeAPI and store it
-        
+
         axios.get<PokemonAPI>(`https://pokeapi.co/api/v2/pokemon/${newPokemon.name}`)
         .then(response => {
             console.log(response.data);
@@ -56,7 +61,7 @@ export default function PokemonList() {
       }
 
       function setNameP(event: React.ChangeEvent<HTMLInputElement>){
-        
+
         newPokemon.name = event.target.value;
       }
 
@@ -75,7 +80,12 @@ export default function PokemonList() {
         <div className="grid-pokemon">
             {
                 listOfPokemons.map(poke => {
-                    return <PokemonBox key={poke.name} {...poke} />
+                    return(
+                      <>
+                        <PokemonBox key={poke.name} {...poke} />
+                        <button onClick={() => removePokemon(poke.name)}>Remove</button>
+                      </>
+                    )
                 })
             }
         </div>
