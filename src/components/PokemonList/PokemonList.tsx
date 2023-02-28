@@ -81,10 +81,10 @@ export default function PokemonList() {
             {
                 listOfPokemons.map(poke => {
                     return(
-                      <>
-                        <PokemonBox key={poke.name} {...poke} />
+                      <div key={poke.name}>
+                        <PokemonBox {...poke} />
                         <button onClick={() => removePokemon(poke.name)}>Remove</button>
-                      </>
+                      </div>
                     )
                 })
             }
